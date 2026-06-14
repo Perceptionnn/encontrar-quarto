@@ -276,6 +276,7 @@
       <div>
         <h1>Quartos em Almada ate 300 EUR</h1>
         <p class="sub">Resultados filtrados, riscos visiveis e mensagens prontas para aprovação manual.</p>
+        <p class="sub" id="loadStatus">A carregar CSV publicado...</p>
       </div>
       <button class="ghost" id="loadSample" type="button">Carregar exemplo</button>
     </div>
@@ -335,7 +336,7 @@
           </thead>
           <tbody id="rows"></tbody>
         </table>
-        <div class="empty" id="empty">Carrega o ficheiro <strong>data/quartos.csv</strong> gerado pelo pipeline.</div>
+        <div class="empty" id="empty">Ainda nao ha anuncios compativeis no CSV publicado.</div>
       </div>
 
       <aside class="side">
@@ -385,6 +386,7 @@
       statIncluded: document.getElementById("statIncluded"),
       statRisk: document.getElementById("statRisk")
     };
+    fields.loadStatus = document.getElementById("loadStatus");
 
     function parseCsv(text) {
       const rows = [];
@@ -518,6 +520,7 @@
     document.getElementById("exportCsv").addEventListener("click", exportFiltered);
     document.getElementById("loadSample").addEventListener("click", () => {
       listings = sampleRows;
+      fields.loadStatus.textContent = "Exemplo carregado localmente.";
       applyFilters();
       selectListing(sampleRows[0]);
     });
@@ -529,7 +532,23 @@
       if (selected && selected.link) window.open(selected.link, "_blank", "noopener");
     });
 
-    applyFilters();
+    async function loadPublishedCsv() {
+      try {
+        const response = await fetch(`data/quartos.csv?ts=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        listings = parseCsv(await response.text());
+        fields.loadStatus.textContent = listings.length
+          ? `CSV publicado carregado: ${listings.length} anuncio(s).`
+          : "CSV publicado carregado, mas sem anuncios compativeis.";
+      } catch (error) {
+        fields.loadStatus.textContent = "Nao foi possivel carregar o CSV publicado. Usa o seletor CSV.";
+        listings = [];
+      }
+      applyFilters();
+      if (filtered.length) selectListing(filtered[0]);
+    }
+
+    loadPublishedCsv();
   </script>
 </body>
 </html>
