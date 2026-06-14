@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quartos Almada ate 300 EUR</title>
+  <style>
+    :root {
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --text: #18211f;
+      --muted: #63706b;
+      --line: #d9ded5;
+      --accent: #0f766e;
+      --accent-2: #b45309;
+      --danger: #b91c1c;
+      --ok: #166534;
+      --shadow: 0 10px 30px rgba(19, 31, 29, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: #eef3ee;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      padding: 24px 0 40px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    button,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    input,
+    select {
+      height: 42px;
+      padding: 0 11px;
+    }
+
+    button {
+      height: 42px;
+      padding: 0 14px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .ghost {
+      background: #fff;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      min-height: 86px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .table-shell,
+    .side {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    th {
+      background: #f1f5f2;
+      color: #34423d;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    tr:hover {
+      background: #fbfcf9;
+    }
+
+    .score {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 30px;
+      border-radius: 16px;
+      background: #e6f4ef;
+      color: var(--ok);
+      font-weight: 800;
+    }
+
+    .risk {
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .side {
+      position: sticky;
+      top: 16px;
+      padding: 16px;
+    }
+
+    .side h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .picked {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 172px;
+      padding: 12px;
+      resize: vertical;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .empty {
+      padding: 32px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .file-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .file-row input {
+      padding-top: 9px;
+    }
+
+    @media (max-width: 960px) {
+      .toolbar,
+      .stats,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div>
+        <h1>Quartos em Almada ate 300 EUR</h1>
+        <p class="sub">Resultados filtrados, riscos visiveis e mensagens prontas para aprovação manual.</p>
+      </div>
+      <button class="ghost" id="loadSample" type="button">Carregar exemplo</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="toolbar" aria-label="Filtros">
+      <label>
+        CSV
+        <input id="csvFile" type="file" accept=".csv,text/csv">
+      </label>
+      <label>
+        Pesquisa
+        <input id="search" type="search" placeholder="zona, titulo, fonte">
+      </label>
+      <label>
+        Despesas
+        <select id="expenses">
+          <option value="">Todas</option>
+          <option value="sim">Incluidas</option>
+          <option value="incerto">Incerto</option>
+          <option value="nao">Nao incluidas</option>
+        </select>
+      </label>
+      <label>
+        Score minimo
+        <select id="minScore">
+          <option value="0">0+</option>
+          <option value="6">6+</option>
+          <option value="7">7+</option>
+          <option value="8">8+</option>
+        </select>
+      </label>
+      <button class="primary" id="exportCsv" type="button">Exportar filtrados</button>
+    </section>
+
+    <section class="stats" aria-label="Resumo">
+      <div class="stat"><strong id="statTotal">0</strong><span>Anuncios visiveis</span></div>
+      <div class="stat"><strong id="statBest">0</strong><span>Melhor pontuacao</span></div>
+      <div class="stat"><strong id="statIncluded">0</strong><span>Com despesas incluidas</span></div>
+      <div class="stat"><strong id="statRisk">0</strong><span>Com sinais de alerta</span></div>
+    </section>
+
+    <section class="grid">
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 26%">Titulo</th>
+              <th style="width: 9%">Preco</th>
+              <th style="width: 13%">Zona</th>
+              <th style="width: 12%">Despesas</th>
+              <th style="width: 10%">Entrada</th>
+              <th style="width: 9%">Score</th>
+              <th style="width: 21%">Notas</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty">Carrega o ficheiro <strong>data/quartos.csv</strong> gerado pelo pipeline.</div>
+      </div>
+
+      <aside class="side">
+        <h2>Contacto</h2>
+        <div class="picked" id="picked">Seleciona um anuncio na tabela para gerar a mensagem.</div>
+        <textarea id="message" readonly></textarea>
+        <div class="actions">
+          <button class="primary" id="copyMessage" type="button">Copiar</button>
+          <button class="ghost" id="openLink" type="button">Abrir link</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const template = "Boa tarde. Vi o anúncio do quarto em [zona] por [preço]. Gostaria de saber se ainda está disponível. Tenho interesse numa entrada rápida. As despesas estão incluídas? Seria possível agendar uma visita hoje ou amanhã? Obrigado.";
+    const sampleRows = [
+      {
+        titulo: "Quarto individual em Almada perto do metro",
+        preco: "280",
+        zona: "Almada",
+        despesas_incluidas: "sim",
+        entrada_disponivel: "imediata",
+        link: "https://example.com/anuncio-quarto-almada",
+        contacto: "",
+        pontuacao_compatibilidade: "9.0",
+        observacoes_importantes: "perto de transportes; despesas incluidas",
+        riscos_sinais_alerta: ""
+      }
+    ];
+
+    let listings = [];
+    let filtered = [];
+    let selected = null;
+
+    const fields = {
+      file: document.getElementById("csvFile"),
+      search: document.getElementById("search"),
+      expenses: document.getElementById("expenses"),
+      minScore: document.getElementById("minScore"),
+      rows: document.getElementById("rows"),
+      empty: document.getElementById("empty"),
+      message: document.getElementById("message"),
+      picked: document.getElementById("picked"),
+      statTotal: document.getElementById("statTotal"),
+      statBest: document.getElementById("statBest"),
+      statIncluded: document.getElementById("statIncluded"),
+      statRisk: document.getElementById("statRisk")
+    };
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+
+      for (let i = 0; i < text.length; i += 1) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && quoted && next === '"') {
+          cell += '"';
+          i += 1;
+        } else if (char === '"') {
+          quoted = !quoted;
+        } else if (char === "," && !quoted) {
+          row.push(cell);
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !quoted) {
+          if (char === "\r" && next === "\n") i += 1;
+          row.push(cell);
+          if (row.some(value => value.trim() !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+
+      row.push(cell);
+      if (row.some(value => value.trim() !== "")) rows.push(row);
+      const headers = rows.shift() || [];
+      return rows.map(values => Object.fromEntries(headers.map((header, index) => [header.replace(/^\uFEFF/, ""), values[index] || ""])));
+    }
+
+    function applyFilters() {
+      const query = fields.search.value.trim().toLowerCase();
+      const expenses = fields.expenses.value;
+      const minScore = Number(fields.minScore.value);
+
+      filtered = listings
+        .filter(item => {
+          const haystack = [item.titulo, item.zona, item.source, item.observacoes_importantes, item.riscos_sinais_alerta].join(" ").toLowerCase();
+          const score = Number(item.pontuacao_compatibilidade || 0);
+          return (!query || haystack.includes(query)) &&
+            (!expenses || item.despesas_incluidas === expenses) &&
+            score >= minScore;
+        })
+        .sort((a, b) => Number(b.pontuacao_compatibilidade || 0) - Number(a.pontuacao_compatibilidade || 0));
+
+      render();
+    }
+
+    function render() {
+      fields.rows.innerHTML = "";
+      fields.empty.style.display = filtered.length ? "none" : "block";
+
+      for (const item of filtered) {
+        const tr = document.createElement("tr");
+        tr.tabIndex = 0;
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(item.titulo || "")}</strong><br><span class="muted">${escapeHtml(item.source || "")}</span></td>
+          <td>${escapeHtml(item.preco || "")} EUR</td>
+          <td>${escapeHtml(item.zona || "incerto")}</td>
+          <td>${escapeHtml(item.despesas_incluidas || "incerto")}</td>
+          <td>${escapeHtml(item.entrada_disponivel || "incerto")}</td>
+          <td><span class="score">${escapeHtml(item.pontuacao_compatibilidade || "0")}</span></td>
+          <td>${escapeHtml(item.observacoes_importantes || "sem notas")}<br><span class="risk">${escapeHtml(item.riscos_sinais_alerta || "")}</span></td>
+        `;
+        tr.addEventListener("click", () => selectListing(item));
+        tr.addEventListener("keydown", event => {
+          if (event.key === "Enter") selectListing(item);
+        });
+        fields.rows.appendChild(tr);
+      }
+
+      fields.statTotal.textContent = filtered.length;
+      fields.statBest.textContent = filtered.length ? Math.max(...filtered.map(item => Number(item.pontuacao_compatibilidade || 0))).toFixed(1) : "0";
+      fields.statIncluded.textContent = filtered.filter(item => item.despesas_incluidas === "sim").length;
+      fields.statRisk.textContent = filtered.filter(item => (item.riscos_sinais_alerta || "").trim()).length;
+    }
+
+    function selectListing(item) {
+      selected = item;
+      const price = item.preco ? `${item.preco} EUR` : "preco indicado";
+      fields.picked.innerHTML = `<strong>${escapeHtml(item.titulo || "")}</strong><span>${escapeHtml(item.zona || "zona incerta")} · ${escapeHtml(price)}</span>`;
+      fields.message.value = template.replace("[zona]", item.zona || "Almada").replace("[preço]", price);
+    }
+
+    function exportFiltered() {
+      const headers = ["titulo", "preco", "zona", "despesas_incluidas", "entrada_disponivel", "link", "contacto", "pontuacao_compatibilidade", "observacoes_importantes", "riscos_sinais_alerta"];
+      const lines = [headers.join(",")].concat(filtered.map(item => headers.map(header => csvCell(item[header] || "")).join(",")));
+      const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "quartos_filtrados.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvCell(value) {
+      const text = String(value);
+      return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[char]);
+    }
+
+    fields.file.addEventListener("change", async event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      listings = parseCsv(await file.text());
+      selected = null;
+      fields.message.value = "";
+      fields.picked.textContent = "Seleciona um anuncio na tabela para gerar a mensagem.";
+      applyFilters();
+    });
+
+    fields.search.addEventListener("input", applyFilters);
+    fields.expenses.addEventListener("change", applyFilters);
+    fields.minScore.addEventListener("change", applyFilters);
+    document.getElementById("exportCsv").addEventListener("click", exportFiltered);
+    document.getElementById("loadSample").addEventListener("click", () => {
+      listings = sampleRows;
+      applyFilters();
+      selectListing(sampleRows[0]);
+    });
+    document.getElementById("copyMessage").addEventListener("click", async () => {
+      if (!fields.message.value) return;
+      await navigator.clipboard.writeText(fields.message.value);
+    });
+    document.getElementById("openLink").addEventListener("click", () => {
+      if (selected && selected.link) window.open(selected.link, "_blank", "noopener");
+    });
+
+    applyFilters();
+  </script>
+</body>
+</html>
