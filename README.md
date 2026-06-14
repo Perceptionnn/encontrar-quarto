@@ -1,11 +1,11 @@
-# Encontrar quartos em Almada ate 300 EUR
+# Encontrar quartos em Almada ate 380 EUR
 
 Pipeline local e seguro para procurar quartos individuais em Almada e zonas proximas.
 
 ## O que faz
 
 - Pesquisa Idealista, OLX, BQuarto e resultados web portugueses.
-- Filtra quartos ate `300 EUR`.
+- Filtra quartos ate `380 EUR`.
 - Dá prioridade a Almada, Cova da Piedade, Pragal, Cacilhas, Laranjeiro, Feijo/Feijó e zonas proximas.
 - Exclui anuncios incompatíveis ou suspeitos quando o texto permite detetar isso.
 - Evita duplicados entre execucoes.
