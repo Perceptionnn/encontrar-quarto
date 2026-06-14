@@ -1,0 +1,25 @@
+{
+  "max_price": 380,
+  "currency": "EUR",
+  "locations": [
+    "Almada",
+    "Cova da Piedade",
+    "Pragal",
+    "Cacilhas",
+    "Laranjeiro",
+    "Feijo",
+    "Feijó",
+    "Trafaria",
+    "Corroios",
+    "Sobreda"
+  ],
+  "preferred_expenses_included": true,
+  "output_dir": "data",
+  "contact_template": "Boa tarde. Vi o anúncio do quarto em [zona] por [preço]. Gostaria de saber se ainda está disponível. Tenho interesse numa entrada rápida. As despesas estão incluídas? Seria possível agendar uma visita hoje ou amanhã? Obrigado.",
+  "sources": {
+    "olx": true,
+    "idealista": true,
+    "bquarto": true,
+    "web_search": true
+  }
+}
