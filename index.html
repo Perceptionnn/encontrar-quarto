@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quartos Almada ate 300 EUR</title>
+  <title>Quartos Almada ate 380 EUR</title>
   <style>
     :root {
       --bg: #f6f7f2;
@@ -247,6 +247,10 @@
       text-align: center;
     }
 
+    .mobile-label {
+      display: none;
+    }
+
     .file-row {
       display: flex;
       gap: 10px;
@@ -268,13 +272,130 @@
         position: static;
       }
     }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100% - 20px, 680px);
+      }
+
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .toolbar {
+        gap: 12px;
+        padding: 12px;
+      }
+
+      input,
+      select,
+      button {
+        min-height: 46px;
+        height: auto;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .stat {
+        min-height: 74px;
+        padding: 12px;
+      }
+
+      .stat strong {
+        font-size: 22px;
+      }
+
+      table,
+      thead,
+      tbody,
+      tr,
+      td {
+        display: block;
+        width: 100%;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      tr {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      tr:hover {
+        background: #fff;
+      }
+
+      td {
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 10px;
+        min-height: 42px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+
+      td:last-child {
+        border-bottom: 0;
+      }
+
+      td:first-child {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        background: #f7faf7;
+      }
+
+      .mobile-label {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      td:first-child .mobile-label {
+        display: none;
+      }
+
+      .score {
+        width: 48px;
+        height: 32px;
+      }
+
+      .side {
+        padding: 14px;
+      }
+
+      textarea {
+        min-height: 210px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap topbar">
       <div>
-        <h1>Quartos em Almada ate 300 EUR</h1>
+        <h1>Quartos em Almada ate 380 EUR</h1>
         <p class="sub">Resultados filtrados, riscos visiveis e mensagens prontas para aprovação manual.</p>
         <p class="sub" id="loadStatus">A carregar CSV publicado...</p>
       </div>
@@ -449,13 +570,13 @@
         const tr = document.createElement("tr");
         tr.tabIndex = 0;
         tr.innerHTML = `
-          <td><strong>${escapeHtml(item.titulo || "")}</strong><br><span class="muted">${escapeHtml(item.source || "")}</span></td>
-          <td>${escapeHtml(item.preco || "")} EUR</td>
-          <td>${escapeHtml(item.zona || "incerto")}</td>
-          <td>${escapeHtml(item.despesas_incluidas || "incerto")}</td>
-          <td>${escapeHtml(item.entrada_disponivel || "incerto")}</td>
-          <td><span class="score">${escapeHtml(item.pontuacao_compatibilidade || "0")}</span></td>
-          <td>${escapeHtml(item.observacoes_importantes || "sem notas")}<br><span class="risk">${escapeHtml(item.riscos_sinais_alerta || "")}</span></td>
+          <td><span class="mobile-label">Titulo</span><strong>${escapeHtml(item.titulo || "")}</strong><span class="muted">${escapeHtml(item.source || "")}</span></td>
+          <td><span class="mobile-label">Preco</span><span>${escapeHtml(item.preco || "")} EUR</span></td>
+          <td><span class="mobile-label">Zona</span><span>${escapeHtml(item.zona || "incerto")}</span></td>
+          <td><span class="mobile-label">Despesas</span><span>${escapeHtml(item.despesas_incluidas || "incerto")}</span></td>
+          <td><span class="mobile-label">Entrada</span><span>${escapeHtml(item.entrada_disponivel || "incerto")}</span></td>
+          <td><span class="mobile-label">Score</span><span class="score">${escapeHtml(item.pontuacao_compatibilidade || "0")}</span></td>
+          <td><span class="mobile-label">Notas</span><span>${escapeHtml(item.observacoes_importantes || "sem notas")}<br><span class="risk">${escapeHtml(item.riscos_sinais_alerta || "")}</span></span></td>
         `;
         tr.addEventListener("click", () => selectListing(item));
         tr.addEventListener("keydown", event => {
